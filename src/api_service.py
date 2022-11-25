@@ -10,7 +10,7 @@ class ApiService:
             'x-rapidapi-host': 'v1.basketball.api-sports.io'
         }
 
-    def get_team_stats(self, team_id):
+    def get_current_team_stats(self, team_id):
         self.conn.request('GET', f'/standings?league=12&season=2022-2023&team={team_id}', headers=self.headers)
         res = self.conn.getresponse()
         data = res.read().decode('utf-8')
@@ -56,3 +56,6 @@ class ApiService:
             elif key == 'position' and value == 15:
                 break
         return standings
+
+    def close(self):
+        self.conn.close()
