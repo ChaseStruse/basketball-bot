@@ -1,8 +1,8 @@
 import os
 import discord
 from dotenv import load_dotenv
-import NbaTeamIdEnum
-from ApiService import ApiService
+from src.enums import enum_nba_team_ids
+from api_service import ApiService
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -48,8 +48,8 @@ async def on_message(message):
 
     if message.content[0:21] == '!basketball teamstats':
         team_name = message.content[22:]
-        team_id = NbaTeamIdEnum.NbaTeamId[team_name].value
-        stats = api_service.get_team_stats(team_id)
+        team_id = enum_nba_team_ids.NbaTeamId[team_name].value
+        stats = api_service.get_current_team_stats(team_id)
         await message.channel.send(convert_team_stats_to_message(stats))
 
     if message.content[0:21] == '!basketball standings':
