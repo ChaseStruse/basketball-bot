@@ -13,21 +13,10 @@ client = discord.Client(intents=discord.Intents.all())
 api_service = ApiService(API_KEY)
 
 
-def convert_team_stats_to_message(team_stats):
-    message = (f'{team_stats["team_name"]} \n'
-               f"Standings Rank: {team_stats['standings_rank']} \n"
-               f"Games Played: {team_stats['games_played']} \n"
-               f"Record (Wins/Losses): {team_stats['games_won']} - {team_stats['games_lost']} \n")
 
-    return message
 
-def convert_standings_to_message(standings):
-    message = ''
-    for key, value in standings.items():
-        print(key)
-        message += f'{key} {value[0]}  {value[1]} - {value[2]} \n'
 
-    return message
+
 
 
 @client.event
@@ -50,16 +39,24 @@ async def on_message(message):
         team_name = message.content[22:]
         team_id = enum_nba_team_ids.NbaTeamId[team_name].value
         stats = api_service.get_current_team_stats(team_id)
-        await message.channel.send(convert_team_stats_to_message(stats))
+        await message.channel.send(stats)
 
-    if message.content[0:21] == '!basketball standings':
-        standings = api_service.get_nba_standings()
-        await message.channel.send(convert_standings_to_message(standings))
+    if message.content == '!basketball standings':
+        await message.channel.send(api_service.get_current_nba_standings())
+
+    if message.content == '!basketball todaysgames':
+        await message.channel.send(api_service.get_todays_games())
 
     if message.content == '!basketball help':
         bot_message = ('Current Working Commands \n'
                        '`!basketball teamstats` TEAM_NAME \n'
-                       'ex: `!basketball teamstats` BOSTON_CELTICS')
+                       'ex: `!basketball teamstats` BOSTON_CELTICS'
+                       '\n'
+                       '!basketball standings \n'
+                       'Gives you the current standings for this season \n'
+                       '\n'
+                       '!basketball todaysgames \n'
+                       'Gives you the scores of todays games')
         await message.channel.send(bot_message)
 
 
