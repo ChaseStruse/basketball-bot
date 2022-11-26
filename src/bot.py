@@ -13,12 +13,6 @@ client = discord.Client(intents=discord.Intents.all())
 api_service = ApiService(API_KEY)
 
 
-
-
-
-
-
-
 @client.event
 async def on_ready():
     try:
