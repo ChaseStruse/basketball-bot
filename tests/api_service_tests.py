@@ -13,7 +13,7 @@ class ApiServiceTests(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
-            'hourly': '2022'
+            'team': 'team'
         }
         mock_response.get.return_value = mock_response
 
@@ -21,7 +21,7 @@ class ApiServiceTests(unittest.TestCase):
             'test team': 'test name',
             'games': 10
         }
-        self.apiService.convert_team_stats_json_to_dict = MagicMock(return_value = expected)
+        self.apiService.convert_team_stats_json_to_dict = MagicMock(return_value=expected)
         actual = self.apiService.get_current_team_stats(1)
         self.assertEqual(actual, expected)
 
