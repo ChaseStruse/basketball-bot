@@ -1,3 +1,6 @@
 # basketball-bot
 
-Discord bot that shows the teams current win loss, further functionality is still being worked on
+Discord bot that utilizes the api-sports basketball api
+[Documentation for Api](https://api-sports.io/documentation/basketball/v1#section/Introduction)
+
+Bot commands can be found by typing !basketball help in discord. 
