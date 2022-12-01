@@ -3,7 +3,7 @@ import discord
 from discord.ext.commands import Bot
 from dotenv import load_dotenv
 from src.enums import enum_nba_team_ids
-from api_service import ApiService
+from src.services.api_service import ApiService
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
