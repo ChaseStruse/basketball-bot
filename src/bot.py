@@ -14,8 +14,8 @@ api_service = ApiService(API_KEY)
 
 
 @bot.command('basketball_teamstats')
-async def basketball_team_stats(ctx, arg):
-    team_name = arg
+async def basketball_team_stats(ctx, *args):
+    team_name = '_'.join(args).upper()
     team_id = enum_nba_team_ids.NbaTeamId[team_name].value
     stats = api_service.get_current_team_stats(team_id)
     await ctx.send(stats)
@@ -34,8 +34,8 @@ async def basketball_todays_games(ctx):
 @bot.command()
 async def basketball_help(ctx):
     bot_message = ('Current Working Commands \n'
-                   '`!basketball_teamstats` TEAM_NAME \n'
-                   'ex: `!basketball teamstats` BOSTON_CELTICS'
+                   '`!basketball_teamstats` Team Name \n'
+                   'ex: `!basketball teamstats` Boston Celtics'
                    '\n'
                    '`!basketball_standings` \n'
                    'Gives you the current standings for this season \n'
