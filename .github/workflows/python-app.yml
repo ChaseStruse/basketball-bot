@@ -41,6 +41,6 @@ jobs:
         pip install pytest
         
     - name: Run unit tests
-      working-directory: ../tests
+      working-directory: ./tests
       run: python -m pytest
         
